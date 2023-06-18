@@ -11,51 +11,24 @@
       runs-on: ubuntu-latest
 
       steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
-        - name: Setup Node
-          uses: actions/setup-node@v3
-        - uses: actions/cache@v3
-          id: npm-cache
-          with:
-            path: ~/.npm
-            key: npm-${{ hashFiles('**/package-lock.json') }}
-        - run: npm ci
-          name: Install modules from npm
+        - name: Checkout and Setup Node
+          uses: ./.github/actions/checkout-and-setup
         - run: npm run build
           name: Build
     unit-test:
       runs-on: ubuntu-latest
 
       steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
-        - name: Setup Node
-          uses: actions/setup-node@v3
-        - uses: actions/cache@v3
-          id: npm-cache
-          with:
-            path: ~/.npm
-            key: npm-${{ hashFiles('**/package-lock.json') }}
-        - run: npm ci
-          name: Install modules from npm
+        - name: Checkout and Setup Node
+          uses: ./.github/actions/checkout-and-setup
         - run: npm test
           name: Run the tests
     coverage:
       runs-on: ubuntu-latest
 
       steps:
-        - name: Checkout repository
-          uses: actions/checkout@v3
-        - name: Setup Node
-          uses: actions/setup-node@v3
-        - uses: actions/cache@v3
-          id: npm-cache
-          with:
-            path: ~/.npm
-            key: npm-${{ hashFiles('**/package-lock.json') }}
-        - run: npm ci
-          name: Install modules from npm
+        - name: Checkout and Setup Node
+          uses: ./.github/actions/checkout-and-setup
         - run: npm run coverage
           name: Generate coverage report
         - name: Upload coverage report
