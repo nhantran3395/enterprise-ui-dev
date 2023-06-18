@@ -11,7 +11,7 @@
       runs-on: ubuntu-latest
 
       steps:
-        - name: Checkout and Setup Node
+        - name: Checkout and setup Node
           uses: ./.github/actions/checkout-and-setup
         - run: npm run build
           name: Build
@@ -19,7 +19,7 @@
       runs-on: ubuntu-latest
 
       steps:
-        - name: Checkout and Setup Node
+        - name: Checkout and setup Node
           uses: ./.github/actions/checkout-and-setup
         - run: npm test
           name: Run the tests
@@ -27,7 +27,7 @@
       runs-on: ubuntu-latest
 
       steps:
-        - name: Checkout and Setup Node
+        - name: Checkout and setup Node
           uses: ./.github/actions/checkout-and-setup
         - run: npm run coverage
           name: Generate coverage report
