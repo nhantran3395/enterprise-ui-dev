@@ -1,4 +1,4 @@
-  name: Build and run unit tests
+  name: 'build-and-run-unit-tests'
 
   on:
     push:
@@ -9,55 +9,31 @@
   jobs:
     build:
       runs-on: ubuntu-latest
-
       steps:
         - name: Checkout repository
           uses: actions/checkout@v3
-        - name: Setup Node
-          uses: actions/setup-node@v3
-        - uses: actions/cache@v3
-          id: npm-cache
-          with:
-            path: ~/.npm
-            key: npm-${{ hashFiles('**/package-lock.json') }}
-        - run: npm ci
-          name: Install modules from npm
-        - run: npm run build
-          name: Build
+        - name: Setup Node and install dependencies
+          uses: ./.github/actions/checkout-and-setup
+        - name: Build
+          run: npm run build
     unit-test:
       runs-on: ubuntu-latest
-
       steps:
         - name: Checkout repository
           uses: actions/checkout@v3
-        - name: Setup Node
-          uses: actions/setup-node@v3
-        - uses: actions/cache@v3
-          id: npm-cache
-          with:
-            path: ~/.npm
-            key: npm-${{ hashFiles('**/package-lock.json') }}
-        - run: npm ci
-          name: Install modules from npm
-        - run: npm test
-          name: Run the tests
+        - name: Setup Node and install dependencies
+          uses: ./.github/actions/checkout-and-setup
+        - name: Run unit tests
+          run: npm test
     coverage:
       runs-on: ubuntu-latest
-
       steps:
         - name: Checkout repository
           uses: actions/checkout@v3
-        - name: Setup Node
-          uses: actions/setup-node@v3
-        - uses: actions/cache@v3
-          id: npm-cache
-          with:
-            path: ~/.npm
-            key: npm-${{ hashFiles('**/package-lock.json') }}
-        - run: npm ci
-          name: Install modules from npm
-        - run: npm run coverage
-          name: Generate coverage report
+        - name: Setup Node and install dependencies
+          uses: ./.github/actions/checkout-and-setup
+        - name: Generate coverage report
+          run: npm run coverage
         - name: Upload coverage report
           uses: actions/upload-artifact@v3
           with:
