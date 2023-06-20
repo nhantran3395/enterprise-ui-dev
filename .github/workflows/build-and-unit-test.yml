@@ -1,4 +1,4 @@
-  name: Build and run unit tests
+  name: 'build-and-run-unit-tests'
 
   on:
     push:
@@ -9,28 +9,31 @@
   jobs:
     build:
       runs-on: ubuntu-latest
-
       steps:
-        - name: Checkout and setup Node
+        - name: Checkout repository
+          uses: actions/checkout@v3
+        - name: Setup Node and install dependencies
           uses: ./.github/actions/checkout-and-setup
-        - run: npm run build
-          name: Build
+        - name: Build
+          run: npm run build
     unit-test:
       runs-on: ubuntu-latest
-
       steps:
-        - name: Checkout and setup Node
+        - name: Checkout repository
+          uses: actions/checkout@v3
+        - name: Setup Node and install dependencies
           uses: ./.github/actions/checkout-and-setup
-        - run: npm test
-          name: Run the tests
+        - name: Run unit tests
+          run: npm test
     coverage:
       runs-on: ubuntu-latest
-
       steps:
-        - name: Checkout and setup Node
+        - name: Checkout repository
+          uses: actions/checkout@v3
+        - name: Setup Node and install dependencies
           uses: ./.github/actions/checkout-and-setup
-        - run: npm run coverage
-          name: Generate coverage report
+        - name: Generate coverage report
+          run: npm run coverage
         - name: Upload coverage report
           uses: actions/upload-artifact@v3
           with:
